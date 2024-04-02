@@ -13,11 +13,7 @@ function Gameboard() {
     const getBoard = () => gameboard;
 
     const mark = (row,column,player) => {
-        if (gameboard[row][column] === 0) {
-            gameboard[row][column].addMark(player);
-        } else {
-            return;
-        }
+        gameboard[row][column].addMark(player);
     }
 
     const printBoard = () => {
@@ -36,7 +32,11 @@ function Cell() {
     let value = 0;
 
     const addMark = (player) => {
-        value = player;
+        if (value == 0) {
+            value = player;
+        } else {
+            return;
+        }    
     };
 
     const getValue = () => value;
