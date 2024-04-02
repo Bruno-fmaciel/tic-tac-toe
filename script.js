@@ -141,7 +141,8 @@ playerTwoName = "Player Two") {
     return {
         playRound,
         getActivePlayer,
-        getBoard : gameboard.getBoard
+        getBoard : gameboard.getBoard,
+        checkWinner
     }
 }
 
@@ -150,6 +151,8 @@ function ScreenController() {
     const playerOneTurn = document.getElementById("PlayerOne");
     const playerTwoTurn = document.getElementById('PlayerTwo');
     const gameboardDiv = document.querySelector('.gameboard');
+    const newGame = document.querySelector('.start');
+    const clear = document.querySelector('.clear');
 
     const updateScreen = () => {
         gameboardDiv.textContent = "";
@@ -174,6 +177,12 @@ function ScreenController() {
         if (!selectedColumn || !selectedRow) return;
         game.playRound(selectedRow,selectedColumn);
         updateScreen();
+
+        if (game.checkWinner() || game.itsDraw()) {
+            gameboardDiv.removeEventListener('click', clickBoard);
+            newGame.style.display = 'block';
+            clear.style.display = 'none';
+        }   
     }
 
     gameboardDiv.addEventListener('click', clickBoard);
@@ -182,3 +191,5 @@ function ScreenController() {
 }
 
 ScreenController();
+
+
