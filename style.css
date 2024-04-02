@@ -46,3 +46,59 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+:root {
+	--neon-lightblue: #2dd9fe;
+  	--neon-glow-lightblue: #00a3d5;
+	--neon-purple: #9461fd;
+	--neon-glow-purple: #4003e6;
+	--neon-yellow: #ffdb4e;
+  	--neon-glow-yellow: #b48505;
+	--neon-white: #fefefe;
+	--neon-glow-white: #ffffff;
+}
+
+body {
+	height: 100vh;
+	width: 100vw;
+	font-family: 'Pixelify Sans',sans-serif;
+	background-image: url("./imgs/fliper.jpg");
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+}
+
+div.container {
+	height: 100vh;
+	width: 60vw;
+	display: grid;
+	background: var(--neon-glow-purple);
+	grid-template:"header" "gameboard" "info"; 
+	grid-template-columns: 100%;
+	grid-template-rows: 1fr 4fr 1fr;
+	box-shadow: 0px 0px 50px 10px var(--neon-glow-lightblue);
+}
+
+.header {
+	grid-area: header;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.title {
+	font-size: 4vw;
+	background: var(--neon-glow-lightblue);
+	padding: 1rem;
+	color: var(--neon-white);
+	box-shadow: 0px 0px 25px 2.5px var(--neon-glow-white);
+	border-radius: 1rem;
+}
+
+.gameboard {
+	grid-area: gameboard;
+}
+
+.info {
+	grid-area: info;
+}
