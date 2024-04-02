@@ -70,7 +70,8 @@ body {
 
 div.container {
 	height: 100vh;
-	width: 60vw;
+	min-width: 400px;
+	width: 50vw;
 	display: grid;
 	background: var(--neon-glow-purple);
 	grid-template:"header" "gameboard" "info"; 
@@ -87,18 +88,66 @@ div.container {
 }
 
 .title {
+	min-width: 150px;
 	font-size: 4vw;
 	background: var(--neon-glow-lightblue);
 	padding: 1rem;
 	color: var(--neon-white);
 	box-shadow: 0px 0px 25px 2.5px var(--neon-glow-white);
 	border-radius: 1rem;
+	text-align: center;
 }
 
 .gameboard {
 	grid-area: gameboard;
+	margin-bottom: 5vh;
+	margin-top: 3vh;
+	background: white;
+	min-width: 300px;
+	width: 30vw;
+	justify-self: center;
+
 }
 
 .info {
 	grid-area: info;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	gap: 4vh;
+}
+
+.player-info {
+	display: flex;
+	gap: 3vw;
+	font-size: 2vw;
+	color: var(--neon-white);
+}
+
+p {
+	background: var(--neon-glow-lightblue);
+	padding: 1rem;
+	border-radius: 1rem;
+	box-shadow: 0px 0px 25px 2.5px var(--neon-glow-white);
+	min-width: 100px;
+	text-align: center;
+}
+
+button {
+	margin-bottom: 6vh;
+	margin-top: 3vh;
+	height: 3rem;
+	width: 10rem;
+	border-radius: 1rem;
+	outline: none;
+	border-style: none;
+	background: var(--neon-yellow);
+	box-shadow: 0px 0px 25px 2.5px var(--neon-glow-yellow);
+	font-family: 'Pixelify Sans', sans-serif;
+	font-size: 3vh;
+}
+
+button:hover {
+	background: var(--neon-glow-yellow);
 }

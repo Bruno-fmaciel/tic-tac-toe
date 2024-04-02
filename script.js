@@ -144,4 +144,9 @@ playerTwoName = "Player Two") {
     }
 }
 
-const game = GameController();  
+function ScreenController() {
+    const game = GameController();  
+    const playerOneTurn = document.getElementById('PlayerOne');
+    const playerTwoTurn = document.getElementById('PlayerTwo');
+    const gameboard = document.querySelector('.gameboard');
+}
