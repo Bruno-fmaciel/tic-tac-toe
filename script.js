@@ -29,10 +29,10 @@ function Gameboard() {
 }
 
 function Cell() {
-    let value = 0;
+    let value = "";
 
     const addMark = (player) => {
-        if (value == 0) {
+        if (value == "") {
             value = player;
         } else {
             return;
@@ -59,14 +59,14 @@ playerTwoName = "Player Two") {
 
     const players = [
         {name : playerOneName,
-        token : 1},
+        token : "X"},
         {name : playerTwoName,
-        token : 2}
+        token : "O"}
     ];
 
     let activePlayer = players[0];
 
-    const switchPlayerTurn = () => activePlayer = activePlayer === players[0]? players[1] : players[0];
+    const switchPlayerTurn = () => activePlayer = activePlayer.name === players[0].name ? players[1] : players[0];
 
     const getActivePlayer = () => activePlayer;
 
@@ -79,22 +79,22 @@ playerTwoName = "Player Two") {
         const board = gameboard.getBoard();
 
         for (let i=0;i<board.length;i++) {
-            if (board[i][0].getValue() !== 0 && board[i][0].getValue() === board[i][1].getValue() && board[i][0].getValue() === board[i][2].getValue()) {
+            if (board[i][0].getValue() !== "" && board[i][0].getValue() === board[i][1].getValue() && board[i][0].getValue() === board[i][2].getValue()) {
                 return players.find(player => player.token === board[i][0].getValue());
             };
         }
 
         for (let i=0;i<board[0].length;i++) {
-            if (board[0][i].getValue() !== 0 && board[0][i].getValue() === board[1][i].getValue() && board[0][i].getValue() === board[2][i].getValue()) {
+            if (board[0][i].getValue() !== "" && board[0][i].getValue() === board[1][i].getValue() && board[0][i].getValue() === board[2][i].getValue()) {
                 return players.find(player => player.token === board[0][i].getValue());
             };
         }
 
-        if (board[0][0].getValue() !== 0 && board[0][0].getValue() === board[1][1].getValue() && board[0][0].getValue() === board[2][2].getValue()) {
+        if (board[0][0].getValue() !== "" && board[0][0].getValue() === board[1][1].getValue() && board[0][0].getValue() === board[2][2].getValue()) {
             return players.find(player=> player.token === board[0][0].getValue());
         }
 
-        if (board[0][2].getValue() !== 0 && board[0][2].getValue() === board[1][1].getValue() && board[0][2].getValue() === board[2][0].getValue()) {
+        if (board[0][2].getValue() !== "" && board[0][2].getValue() === board[1][1].getValue() && board[0][2].getValue() === board[2][0].getValue()) {
             return players.find(player=> player.token === board[0][2].getValue());
         }
 
@@ -106,7 +106,7 @@ playerTwoName = "Player Two") {
 
         for (let i = 0; i<board.length; i++){
             for(let j=0; j<board[i].length; j++){
-                if (board[i][j].getValue() === 0) {
+                if (board[i][j].getValue() === "") {
                     return false;
                 }
             }
@@ -140,13 +140,45 @@ playerTwoName = "Player Two") {
 
     return {
         playRound,
-        getActivePlayer
+        getActivePlayer,
+        getBoard : gameboard.getBoard
     }
 }
 
 function ScreenController() {
-    const game = GameController();  
-    const playerOneTurn = document.getElementById('PlayerOne');
+    const game = GameController(); 
+    const playerOneTurn = document.getElementById("PlayerOne");
     const playerTwoTurn = document.getElementById('PlayerTwo');
-    const gameboard = document.querySelector('.gameboard');
+    const gameboardDiv = document.querySelector('.gameboard');
+
+    const updateScreen = () => {
+        gameboardDiv.textContent = "";
+        const gameboard = game.getBoard();
+
+        gameboard.forEach((row,rowIndex) => {
+            row.forEach((cell,columnIndex) => {
+                const cellButton = document.createElement('button');
+                cellButton.classList.add('cell');
+                cellButton.dataset.row = rowIndex;
+                cellButton.dataset.column = columnIndex;
+                cellButton.textContent = cell.getValue();
+                gameboardDiv.appendChild(cellButton);
+            })
+        })
+    }
+
+    function clickBoard(e) {
+        const selectedColumn = e.target.dataset.column;
+        const selectedRow = e.target.dataset.row;
+
+        if (!selectedColumn || !selectedRow) return;
+        game.playRound(selectedRow,selectedColumn);
+        updateScreen();
+    }
+
+    gameboardDiv.addEventListener('click', clickBoard);
+
+    updateScreen();
 }
+
+ScreenController();

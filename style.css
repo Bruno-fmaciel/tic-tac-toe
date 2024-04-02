@@ -102,11 +102,15 @@ div.container {
 	grid-area: gameboard;
 	margin-bottom: 5vh;
 	margin-top: 3vh;
-	background: white;
 	min-width: 300px;
 	width: 30vw;
 	justify-self: center;
-
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	justify-content: center;
+	align-items: center;
+	margin-left: 0.1rem;
 }
 
 .info {
@@ -150,4 +154,12 @@ button {
 
 button:hover {
 	background: var(--neon-glow-yellow);
+}
+
+button.cell {
+	height: 100%;
+	width: 100%;
+	border-radius: 0px;
+	border: 1px solid black;
+	font-size: 50px;
 }
