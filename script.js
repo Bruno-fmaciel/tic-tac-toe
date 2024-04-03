@@ -142,12 +142,13 @@ playerTwoName = "Player Two") {
         playRound,
         getActivePlayer,
         getBoard : gameboard.getBoard,
-        checkWinner
+        checkWinner,
+        itsDraw
     }
 }
 
 function ScreenController() {
-    const game = GameController(); 
+    let game = GameController(); 
     const playerOneTurn = document.getElementById("PlayerOne");
     const playerTwoTurn = document.getElementById('PlayerTwo');
     const gameboardDiv = document.querySelector('.gameboard');
@@ -173,18 +174,62 @@ function ScreenController() {
     function clickBoard(e) {
         const selectedColumn = e.target.dataset.column;
         const selectedRow = e.target.dataset.row;
+        const activePlayer = game.getActivePlayer();
+
 
         if (!selectedColumn || !selectedRow) return;
         game.playRound(selectedRow,selectedColumn);
         updateScreen();
 
-        if (game.checkWinner() || game.itsDraw()) {
+        if (game.checkWinner()) {
             gameboardDiv.removeEventListener('click', clickBoard);
             newGame.style.display = 'block';
             clear.style.display = 'none';
+            alert(`${activePlayer.name} won! Congratzzz!
+            Click the New Game button to restart!`)
         }   
+
+        if (game.itsDraw()) {
+            gameboardDiv.removeEventListener('click', clickBoard);
+            newGame.style.display = 'block';
+            clear.style.display = 'none';
+            alert(`It's a Draw! Click the New
+            Game button to restart!`)
+        } 
+
+        if (activePlayer.name == playerOneTurn.textContent) {
+            playerTwoTurn.textContent = "Player Two";
+            playerOneTurn.textContent = "Player one made a play";
+        }
+
+        if (activePlayer.name == playerTwoTurn.textContent) {
+            playerOneTurn.textContent = "Player One";
+            playerTwoTurn.textContent = "Player two made a play";
+        }
+
     }
 
+    function clearBoard() {
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => {
+            cell.innerHTML = '';
+        })
+
+        game = GameController();
+        gameboardDiv.addEventListener('click',clickBoard);
+        updateScreen();
+        newGame.style.display = 'none';
+        clear.style.display = 'block';
+        playerOneTurn.textContent = "Player One";
+        playerTwoTurn.textContent = "Player Two";
+    }
+
+    function startNewGame() {
+        clearBoard();
+    }
+
+    clear.addEventListener('click', clearBoard);
+    newGame.addEventListener('click',startNewGame);
     gameboardDiv.addEventListener('click', clickBoard);
 
     updateScreen();
