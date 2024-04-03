@@ -167,7 +167,7 @@ div.begin {
 	grid-row: 1/-1;
 	grid-column: 1/-1;
 	justify-self: center;
-	font-size: 36px;
+	font-size: 40px;
 	animation: blinker 1s linear infinite;
 }
 
