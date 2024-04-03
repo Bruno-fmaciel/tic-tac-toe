@@ -148,7 +148,7 @@ playerTwoName = "Player Two") {
 }
 
 function ScreenController() {
-    let game = GameController(); 
+    let game;
     const playerOneTurn = document.getElementById("PlayerOne");
     const playerTwoTurn = document.getElementById('PlayerTwo');
     const gameboardDiv = document.querySelector('.gameboard');
@@ -187,6 +187,7 @@ function ScreenController() {
             clear.style.display = 'none';
             alert(`${activePlayer.name} won! Congratzzz!
             Click the New Game button to restart!`)
+            return;
         }   
 
         if (game.itsDraw()) {
@@ -194,7 +195,8 @@ function ScreenController() {
             newGame.style.display = 'block';
             clear.style.display = 'none';
             alert(`It's a Draw! Click the New
-            Game button to restart!`)
+            Game button to`)
+            return;
         } 
 
         if (activePlayer.name == playerOneTurn.textContent) {
@@ -230,9 +232,7 @@ function ScreenController() {
 
     clear.addEventListener('click', clearBoard);
     newGame.addEventListener('click',startNewGame);
-    gameboardDiv.addEventListener('click', clickBoard);
 
-    updateScreen();
 }
 
 ScreenController();
